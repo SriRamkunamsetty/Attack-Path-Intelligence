@@ -1,0 +1,576 @@
+{
+  "version": "1.0.0",
+  "total_scenarios": 30,
+  "passed_scenarios": 30,
+  "edge_precision": 0.875,
+  "edge_recall": 1.0,
+  "path_validity_rate": 0.6,
+  "unsupported_claim_rate": 0.0,
+  "contradiction_detection_rate": 1.0,
+  "attack_mapping_precision": 0.7778,
+  "evidence_traceability_rate": 1.0,
+  "mean_runtime_ms": 0.77,
+  "category_breakdown": {
+    "golden_path": {
+      "total": 5,
+      "passed": 5
+    },
+    "contradiction": {
+      "total": 5,
+      "passed": 5
+    },
+    "prerequisite_gap": {
+      "total": 5,
+      "passed": 5
+    },
+    "telemetry_gap": {
+      "total": 5,
+      "passed": 5
+    },
+    "ambiguous_admin": {
+      "total": 5,
+      "passed": 5
+    },
+    "control_bypassed": {
+      "total": 5,
+      "passed": 5
+    }
+  },
+  "scenario_scores": [
+    {
+      "scenario_id": "BENCH-GP-01",
+      "category": "golden_path",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R701"
+      ],
+      "expected_rules": [],
+      "contradiction_matched": true,
+      "runtime_ms": 2.73,
+      "notes": "Complete telemetry confirms execution, credential dump, and lateral movement."
+    },
+    {
+      "scenario_id": "BENCH-GP-02",
+      "category": "golden_path",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R701"
+      ],
+      "expected_rules": [],
+      "contradiction_matched": true,
+      "runtime_ms": 1.18,
+      "notes": "Complete telemetry confirms execution, credential dump, and lateral movement."
+    },
+    {
+      "scenario_id": "BENCH-GP-03",
+      "category": "golden_path",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R701"
+      ],
+      "expected_rules": [],
+      "contradiction_matched": true,
+      "runtime_ms": 1.2,
+      "notes": "Complete telemetry confirms execution, credential dump, and lateral movement."
+    },
+    {
+      "scenario_id": "BENCH-GP-04",
+      "category": "golden_path",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R701"
+      ],
+      "expected_rules": [],
+      "contradiction_matched": true,
+      "runtime_ms": 2.42,
+      "notes": "Complete telemetry confirms execution, credential dump, and lateral movement."
+    },
+    {
+      "scenario_id": "BENCH-GP-05",
+      "category": "golden_path",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R701"
+      ],
+      "expected_rules": [],
+      "contradiction_matched": true,
+      "runtime_ms": 1.26,
+      "notes": "Complete telemetry confirms execution, credential dump, and lateral movement."
+    },
+    {
+      "scenario_id": "BENCH-CT-06",
+      "category": "contradiction",
+      "status_matched": true,
+      "predicted_status": "contradicted",
+      "expected_status": "contradicted",
+      "findings_matched": true,
+      "detected_rules": [
+        "R501",
+        "R601",
+        "R601"
+      ],
+      "expected_rules": [
+        "R501"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.71,
+      "notes": "MFA fraud alert directly refutes bypass hypothesis."
+    },
+    {
+      "scenario_id": "BENCH-CT-07",
+      "category": "contradiction",
+      "status_matched": true,
+      "predicted_status": "contradicted",
+      "expected_status": "contradicted",
+      "findings_matched": true,
+      "detected_rules": [
+        "R501",
+        "R601",
+        "R601"
+      ],
+      "expected_rules": [
+        "R501"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.6,
+      "notes": "MFA fraud alert directly refutes bypass hypothesis."
+    },
+    {
+      "scenario_id": "BENCH-CT-08",
+      "category": "contradiction",
+      "status_matched": true,
+      "predicted_status": "contradicted",
+      "expected_status": "contradicted",
+      "findings_matched": true,
+      "detected_rules": [
+        "R501",
+        "R601",
+        "R601"
+      ],
+      "expected_rules": [
+        "R501"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.48,
+      "notes": "MFA fraud alert directly refutes bypass hypothesis."
+    },
+    {
+      "scenario_id": "BENCH-CT-09",
+      "category": "contradiction",
+      "status_matched": true,
+      "predicted_status": "contradicted",
+      "expected_status": "contradicted",
+      "findings_matched": true,
+      "detected_rules": [
+        "R501",
+        "R601",
+        "R601"
+      ],
+      "expected_rules": [
+        "R501"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.45,
+      "notes": "MFA fraud alert directly refutes bypass hypothesis."
+    },
+    {
+      "scenario_id": "BENCH-CT-10",
+      "category": "contradiction",
+      "status_matched": true,
+      "predicted_status": "contradicted",
+      "expected_status": "contradicted",
+      "findings_matched": true,
+      "detected_rules": [
+        "R501",
+        "R601",
+        "R601"
+      ],
+      "expected_rules": [
+        "R501"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.48,
+      "notes": "MFA fraud alert directly refutes bypass hypothesis."
+    },
+    {
+      "scenario_id": "BENCH-PV-11",
+      "category": "prerequisite_gap",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R201",
+        "R601",
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R201"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.47,
+      "notes": "A step at timestamp t_late cannot enable a step at t_early."
+    },
+    {
+      "scenario_id": "BENCH-PV-12",
+      "category": "prerequisite_gap",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R201",
+        "R601",
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R201"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.45,
+      "notes": "A step at timestamp t_late cannot enable a step at t_early."
+    },
+    {
+      "scenario_id": "BENCH-PV-13",
+      "category": "prerequisite_gap",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R201",
+        "R601",
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R201"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.45,
+      "notes": "A step at timestamp t_late cannot enable a step at t_early."
+    },
+    {
+      "scenario_id": "BENCH-PV-14",
+      "category": "prerequisite_gap",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R201",
+        "R601",
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R201"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.49,
+      "notes": "A step at timestamp t_late cannot enable a step at t_early."
+    },
+    {
+      "scenario_id": "BENCH-PV-15",
+      "category": "prerequisite_gap",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R201",
+        "R601",
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R201"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.57,
+      "notes": "A step at timestamp t_late cannot enable a step at t_early."
+    },
+    {
+      "scenario_id": "BENCH-TG-16",
+      "category": "telemetry_gap",
+      "status_matched": true,
+      "predicted_status": "partially_supported",
+      "expected_status": "partially_supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R601"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.63,
+      "notes": "Step 2 has no evidence link, indicating an investigative gap."
+    },
+    {
+      "scenario_id": "BENCH-TG-17",
+      "category": "telemetry_gap",
+      "status_matched": true,
+      "predicted_status": "partially_supported",
+      "expected_status": "partially_supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R601"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.63,
+      "notes": "Step 2 has no evidence link, indicating an investigative gap."
+    },
+    {
+      "scenario_id": "BENCH-TG-18",
+      "category": "telemetry_gap",
+      "status_matched": true,
+      "predicted_status": "partially_supported",
+      "expected_status": "partially_supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R601"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.58,
+      "notes": "Step 2 has no evidence link, indicating an investigative gap."
+    },
+    {
+      "scenario_id": "BENCH-TG-19",
+      "category": "telemetry_gap",
+      "status_matched": true,
+      "predicted_status": "partially_supported",
+      "expected_status": "partially_supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R601"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.54,
+      "notes": "Step 2 has no evidence link, indicating an investigative gap."
+    },
+    {
+      "scenario_id": "BENCH-TG-20",
+      "category": "telemetry_gap",
+      "status_matched": true,
+      "predicted_status": "partially_supported",
+      "expected_status": "partially_supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R601",
+        "R701"
+      ],
+      "expected_rules": [
+        "R601"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.53,
+      "notes": "Step 2 has no evidence link, indicating an investigative gap."
+    },
+    {
+      "scenario_id": "BENCH-AA-21",
+      "category": "ambiguous_admin",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R202",
+        "R701"
+      ],
+      "expected_rules": [
+        "R202"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.56,
+      "notes": "Legitimate admin script must surface discriminator questions."
+    },
+    {
+      "scenario_id": "BENCH-AA-22",
+      "category": "ambiguous_admin",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R202",
+        "R701"
+      ],
+      "expected_rules": [
+        "R202"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.56,
+      "notes": "Legitimate admin script must surface discriminator questions."
+    },
+    {
+      "scenario_id": "BENCH-AA-23",
+      "category": "ambiguous_admin",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R202",
+        "R701"
+      ],
+      "expected_rules": [
+        "R202"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.53,
+      "notes": "Legitimate admin script must surface discriminator questions."
+    },
+    {
+      "scenario_id": "BENCH-AA-24",
+      "category": "ambiguous_admin",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R202",
+        "R701"
+      ],
+      "expected_rules": [
+        "R202"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 1.43,
+      "notes": "Legitimate admin script must surface discriminator questions."
+    },
+    {
+      "scenario_id": "BENCH-AA-25",
+      "category": "ambiguous_admin",
+      "status_matched": true,
+      "predicted_status": "supported",
+      "expected_status": "supported",
+      "findings_matched": true,
+      "detected_rules": [
+        "R202",
+        "R701"
+      ],
+      "expected_rules": [
+        "R202"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.89,
+      "notes": "Legitimate admin script must surface discriminator questions."
+    },
+    {
+      "scenario_id": "BENCH-CB-26",
+      "category": "control_bypassed",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R702"
+      ],
+      "expected_rules": [
+        "R702"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.99,
+      "notes": "Confirmed present control did not prevent memory dump."
+    },
+    {
+      "scenario_id": "BENCH-CB-27",
+      "category": "control_bypassed",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R702"
+      ],
+      "expected_rules": [
+        "R702"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.44,
+      "notes": "Confirmed present control did not prevent memory dump."
+    },
+    {
+      "scenario_id": "BENCH-CB-28",
+      "category": "control_bypassed",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R702"
+      ],
+      "expected_rules": [
+        "R702"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.32,
+      "notes": "Confirmed present control did not prevent memory dump."
+    },
+    {
+      "scenario_id": "BENCH-CB-29",
+      "category": "control_bypassed",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R702"
+      ],
+      "expected_rules": [
+        "R702"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.3,
+      "notes": "Confirmed present control did not prevent memory dump."
+    },
+    {
+      "scenario_id": "BENCH-CB-30",
+      "category": "control_bypassed",
+      "status_matched": true,
+      "predicted_status": "unsubstantiated",
+      "expected_status": "unsubstantiated",
+      "findings_matched": true,
+      "detected_rules": [
+        "R702"
+      ],
+      "expected_rules": [
+        "R702"
+      ],
+      "contradiction_matched": true,
+      "runtime_ms": 0.3,
+      "notes": "Confirmed present control did not prevent memory dump."
+    }
+  ]
+}

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AttackPath Intelligence Analysis Report - INC-2026-8812</title>
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dark: #0284c7;
+      --border: #475569;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 24px;
+    }
+    header {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h1 { font-size: 24px; color: var(--accent); }
+    .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .grid-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .card-title { font-size: 13px; text-transform: uppercase; color: var(--text-muted); }
+    .card-value { font-size: 28px; font-weight: 700; color: var(--accent); margin-top: 6px; }
+    .section-title { font-size: 18px; margin: 24px 0 12px 0; border-left: 4px solid var(--accent); padding-left: 10px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+    th { background: var(--bg-card); color: var(--accent); font-weight: 600; }
+    tr:hover { background: rgba(56, 189, 248, 0.05); }
+    .canvas-container {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      height: 480px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    #graphCanvas { width: 100%; height: 100%; display: block; }
+    .canvas-legend {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .tab-bar { display: flex; gap: 12px; margin-bottom: 16px; }
+    .tab-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .tab-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>AttackPath Intelligence Report</h1>
+      <div class="subtitle">Scenario: <strong>INC-2026-8812</strong> · Engine Version: 1.0.0 · Knowledge Base: ATT&CK v15.1</div>
+    </div>
+    <div>
+      <span class="badge" style="background: rgba(56, 189, 248, 0.2); color: var(--accent);">Analysis Complete</span>
+    </div>
+  </header>
+
+  <div class="grid-metrics">
+    <div class="card">
+      <div class="card-title">Graph Nodes</div>
+      <div class="card-value">16</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Directed Edges</div>
+      <div class="card-value">10</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Evidence Coverage</div>
+      <div class="card-value">100%</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Validation Findings</div>
+      <div class="card-value" style="color: var(--accent)">
+        3
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Candidate Paths</div>
+      <div class="card-value">1</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Attack Graph Topology</h2>
+  <div class="canvas-container">
+    <canvas id="graphCanvas"></canvas>
+    <div class="canvas-legend">
+      <div class="legend-item"><span class="dot" style="background: #3b82f6;"></span> Observation</div>
+      <div class="legend-item"><span class="dot" style="background: #f97316;"></span> Attack Step</div>
+      <div class="legend-item"><span class="dot" style="background: #10b981;"></span> Asset</div>
+      <div class="legend-item"><span class="dot" style="background: #8b5cf6;"></span> MITRE Technique</div>
+      <div class="legend-item"><span class="dot" style="background: #ef4444;"></span> Contradiction / Finding</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Candidate Attack Paths & Uncertainty Reasoning</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Path ID</th>
+        <th>Status</th>
+        <th>Path Steps</th>
+        <th>Confidence & Evidence Rationale</th>
+        <th>Missing / Discriminator Evidence</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><strong>path-1</strong></td>
+        <td><span class="badge" style="background: #10b98122; color: #10b981; border: 1px solid #10b981;">supported</span></td>
+        <td>step-1 &rarr; step-2 &rarr; step-3</td>
+        <td>All 3 steps along this trajectory are substantiated by direct security observations.</td>
+        <td style="color: var(--text-muted); font-size: 13px;">None (Fully evidenced)</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <h2 class="section-title">Deterministic Rule Validation Findings</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Rule ID</th>
+        <th>Severity</th>
+        <th>Affected Nodes</th>
+        <th>Explanation</th>
+        <th>Remediation Guidance</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><code>R701</code></td>
+        <td><span class="badge" style="background: #f59e0b22; color: #f59e0b; border: 1px solid #f59e0b;">WARNING</span></td>
+        <td>step-2</td>
+        <td>Step 'Execution via PowerShell Web Request' (stage: execution) has no associated security control (MITIGATED_BY) mapped to limit its impact.</td>
+        <td style="color: var(--text-muted); font-size: 13px;">Map relevant defensive controls such as MFA, EDR, network microsegmentation, or audit logging.</td>
+      </tr>
+
+      <tr>
+        <td><code>R702</code></td>
+        <td><span class="badge" style="background: #f59e0b22; color: #f59e0b; border: 1px solid #f59e0b;">WARNING</span></td>
+        <td>step-1, ctrl-mfa</td>
+        <td>Control Bypass or Failure: Step 'Credential Access / Account Takeover' was observed, yet preventive control 'Conditional Access & MFA Policy' is documented as CONFIRMED_PRESENT in the environment.</td>
+        <td style="color: var(--text-muted); font-size: 13px;">Audit control configuration, inspect policy exceptions, and verify sensor health.</td>
+      </tr>
+
+      <tr>
+        <td><code>R702</code></td>
+        <td><span class="badge" style="background: #f59e0b22; color: #f59e0b; border: 1px solid #f59e0b;">WARNING</span></td>
+        <td>step-3, ctrl-dlp</td>
+        <td>Control Bypass or Failure: Step 'Cloud Storage Exfiltration' was observed, yet preventive control 'Cloud DLP Sensitive Object Access Monitoring' is documented as CONFIRMED_PRESENT in the environment.</td>
+        <td style="color: var(--text-muted); font-size: 13px;">Audit control configuration, inspect policy exceptions, and verify sensor health.</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <script>
+    const rawNodes = [{"id": "usr-bob", "type": "asset", "label": "bob.miller@megacorp.internal", "data": {"id": "usr-bob", "name": "bob.miller@megacorp.internal", "asset_type": "identity", "criticality": "medium", "ip_addresses": [], "identities": [], "attributes": {}}}, {"id": "app-billing", "type": "asset", "label": "BillingPortal-Internal", "data": {"id": "app-billing", "name": "BillingPortal-Internal", "asset_type": "application", "criticality": "medium", "ip_addresses": [], "identities": [], "attributes": {}}}, {"id": "db-vault", "type": "asset", "label": "FinancialRecords-EncryptedBucket", "data": {"id": "db-vault", "name": "FinancialRecords-EncryptedBucket", "asset_type": "cloud_resource", "criticality": "medium", "ip_addresses": [], "identities": [], "attributes": {}}}, {"id": "obs-101", "type": "observation", "label": "Unusual sign-in from foreign IP 185.220.101.5 for ", "data": {"id": "obs-101", "source_id": "azure_ad_signin", "timestamp": "2026-10-18T14:00:00Z", "category": "auth", "description": "Unusual sign-in from foreign IP 185.220.101.5 for bob.miller@megacorp.internal", "asset_id": "usr-bob", "actor_identity": "bob.miller@megacorp.internal", "target_identity": null, "raw_payload": {}, "provenance_hash": null, "data_quality_flags": []}}, {"id": "obs-102", "type": "observation", "label": "PowerShell script executed Get-Credential and web ", "data": {"id": "obs-102", "source_id": "app_proxy", "timestamp": "2026-10-18T14:04:00Z", "category": "endpoint", "description": "PowerShell script executed Get-Credential and web session handoff to BillingPortal", "asset_id": "app-billing", "actor_identity": "bob.miller@megacorp.internal", "target_identity": null, "raw_payload": {}, "provenance_hash": null, "data_quality_flags": []}}, {"id": "obs-103", "type": "observation", "label": "GetObject bulk export of 12,000 records from Finan", "data": {"id": "obs-103", "source_id": "cloudtrail", "timestamp": "2026-10-18T14:10:00Z", "category": "cloud", "description": "GetObject bulk export of 12,000 records from FinancialRecords-EncryptedBucket", "asset_id": "db-vault", "actor_identity": "bob.miller@megacorp.internal", "target_identity": null, "raw_payload": {}, "provenance_hash": null, "data_quality_flags": []}}, {"id": "step-1", "type": "attack_step", "label": "Credential Access / Account Takeover", "data": {"id": "step-1", "title": "Credential Access / Account Takeover", "stage": "initial-access", "description": "", "asset_id": null, "actor_identity": null, "is_inferred": true, "status": "hypothesized", "timestamp": "2026-10-18T14:00:00Z", "prerequisites": []}}, {"id": "step-2", "type": "attack_step", "label": "Execution via PowerShell Web Request", "data": {"id": "step-2", "title": "Execution via PowerShell Web Request", "stage": "execution", "description": "", "asset_id": null, "actor_identity": null, "is_inferred": true, "status": "hypothesized", "timestamp": "2026-10-18T14:04:00Z", "prerequisites": []}}, {"id": "step-3", "type": "attack_step", "label": "Cloud Storage Exfiltration", "data": {"id": "step-3", "title": "Cloud Storage Exfiltration", "stage": "collection", "description": "", "asset_id": null, "actor_identity": null, "is_inferred": true, "status": "hypothesized", "timestamp": "2026-10-18T14:10:00Z", "prerequisites": []}}, {"id": "ctrl-mfa", "type": "security_control", "label": "Conditional Access & MFA Policy", "data": {"id": "ctrl-mfa", "name": "Conditional Access & MFA Policy", "category": "preventive", "state": "confirmed_present", "effectiveness_verified": false, "description": "", "coverage_notes": ""}}, {"id": "ctrl-dlp", "type": "security_control", "label": "Cloud DLP Sensitive Object Access Monitoring", "data": {"id": "ctrl-dlp", "name": "Cloud DLP Sensitive Object Access Monitoring", "category": "detective", "state": "confirmed_present", "effectiveness_verified": false, "description": "", "coverage_notes": ""}}, {"id": "T1059.001", "type": "technique", "label": "T1059.001: PowerShell", "data": {"technique_id": "T1059.001", "name": "PowerShell", "tactics": ["execution"], "description": "Adversaries may abuse PowerShell commands and scripts for execution.", "platforms": ["Windows"], "data_sources": ["Command: Command Execution", "Process: Process Creation", "Script: Script Execution"], "url": null, "version": "v15.1"}}, {"id": "T1530", "type": "technique", "label": "T1530: Data from Cloud Storage", "data": {"technique_id": "T1530", "name": "Data from Cloud Storage", "tactics": ["collection"], "description": "Adversaries may access data from cloud storage objects such as S3 buckets, Azure Blob Storage, or Google Cloud Storage.", "platforms": ["AWS", "Azure", "GCP"], "data_sources": ["Cloud Storage: Cloud Storage Object Access"], "url": null, "version": "v15.1"}}, {"id": "R701-step-2", "type": "finding", "label": "[Severity.WARNING] UnmitigatedHighRiskStepCheck", "data": {"id": "R701-step-2", "rule_id": "R701", "rule_name": "UnmitigatedHighRiskStepCheck", "severity": "WARNING", "affected_node_ids": ["step-2"], "affected_edge_ids": [], "evidence_refs": [], "explanation": "Step 'Execution via PowerShell Web Request' (stage: execution) has no associated security control (MITIGATED_BY) mapped to limit its impact.", "remediation_guidance": "Map relevant defensive controls such as MFA, EDR, network microsegmentation, or audit logging."}}, {"id": "R702-step-1-ctrl-mfa", "type": "finding", "label": "[Severity.WARNING] BypassedControlCheck", "data": {"id": "R702-step-1-ctrl-mfa", "rule_id": "R702", "rule_name": "BypassedControlCheck", "severity": "WARNING", "affected_node_ids": ["step-1", "ctrl-mfa"], "affected_edge_ids": [], "evidence_refs": ["obs-101"], "explanation": "Control Bypass or Failure: Step 'Credential Access / Account Takeover' was observed, yet preventive control 'Conditional Access & MFA Policy' is documented as CONFIRMED_PRESENT in the environment.", "remediation_guidance": "Audit control configuration, inspect policy exceptions, and verify sensor health."}}, {"id": "R702-step-3-ctrl-dlp", "type": "finding", "label": "[Severity.WARNING] BypassedControlCheck", "data": {"id": "R702-step-3-ctrl-dlp", "rule_id": "R702", "rule_name": "BypassedControlCheck", "severity": "WARNING", "affected_node_ids": ["step-3", "ctrl-dlp"], "affected_edge_ids": [], "evidence_refs": ["obs-103"], "explanation": "Control Bypass or Failure: Step 'Cloud Storage Exfiltration' was observed, yet preventive control 'Cloud DLP Sensitive Object Access Monitoring' is documented as CONFIRMED_PRESENT in the environment.", "remediation_guidance": "Audit control configuration, inspect policy exceptions, and verify sensor health."}}];
+    const rawEdges = [{"id": "e1", "source": "step-1", "target": "step-2", "edge_type": "ENABLES", "evidence_refs": [], "metadata": {}}, {"id": "e2", "source": "step-2", "target": "step-3", "edge_type": "ENABLES", "evidence_refs": [], "metadata": {}}, {"id": "e3", "source": "step-1", "target": "obs-101", "edge_type": "OBSERVED_AS", "evidence_refs": [], "metadata": {}}, {"id": "e4", "source": "step-2", "target": "obs-102", "edge_type": "OBSERVED_AS", "evidence_refs": [], "metadata": {}}, {"id": "e5", "source": "step-3", "target": "obs-103", "edge_type": "OBSERVED_AS", "evidence_refs": [], "metadata": {}}, {"id": "e6", "source": "step-1", "target": "ctrl-mfa", "edge_type": "MITIGATED_BY", "evidence_refs": [], "metadata": {}}, {"id": "e7", "source": "step-3", "target": "ctrl-dlp", "edge_type": "MITIGATED_BY", "evidence_refs": [], "metadata": {}}, {"id": "obs-102->MAPPED_TO->T1059.001", "source": "obs-102", "target": "T1059.001", "edge_type": "MAPPED_TO", "evidence_refs": ["obs-102"], "metadata": {"rationale": "Observation explicitly records execution of PowerShell commands or scripts.", "status": "requires_review"}}, {"id": "obs-103->MAPPED_TO->T1530", "source": "obs-103", "target": "T1530", "edge_type": "MAPPED_TO", "evidence_refs": ["obs-103"], "metadata": {"rationale": "Access to cloud storage container or bucket observed.", "status": "requires_review"}}, {"id": "step-2->MAPPED_TO->T1059.001", "source": "step-2", "target": "T1059.001", "edge_type": "MAPPED_TO", "evidence_refs": [], "metadata": {"rationale": "Attack step 'Execution via PowerShell Web Request' explicitly references or corresponds to ATT&CK PowerShell.", "status": "requires_review"}}];
+
+    const canvas = document.getElementById('graphCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+      draw();
+    }
+    window.addEventListener('resize', resize);
+
+    const typeColors = {
+      'observation': '#3b82f6',
+      'attack_step': '#f97316',
+      'asset': '#10b981',
+      'technique': '#8b5cf6',
+      'security_control': '#06b6d4',
+      'finding': '#ef4444'
+    };
+
+    // Position nodes horizontally by type or index
+    const nodeCoords = {};
+    const stepX = Math.max(120, (window.innerWidth - 100) / (rawNodes.length + 1));
+
+    rawNodes.forEach((node, i) => {
+      const angle = (i / rawNodes.length) * 2 * Math.PI;
+      const rx = (canvas.width || 800) / 2 + Math.cos(angle) * 180;
+      const ry = (canvas.height || 480) / 2 + Math.sin(angle) * 140;
+      nodeCoords[node.id] = { x: rx, y: ry, node };
+    });
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw edges
+      ctx.lineWidth = 1.5;
+      rawEdges.forEach(e => {
+        const u = nodeCoords[e.source];
+        const v = nodeCoords[e.target];
+        if (u && v) {
+          ctx.beginPath();
+          ctx.moveTo(u.x, u.y);
+          ctx.lineTo(v.x, v.y);
+          ctx.strokeStyle = e.edge_type === 'CONTRADICTS' ? '#ef4444' : (e.edge_type === 'ENABLES' ? '#38bdf8' : '#475569');
+          if (e.edge_type === 'CONTRADICTS') ctx.setLineDash([5, 5]);
+          else ctx.setLineDash([]);
+          ctx.stroke();
+
+          // Arrow head
+          const angle = Math.atan2(v.y - u.y, v.x - u.x);
+          ctx.beginPath();
+          ctx.moveTo(v.x, v.y);
+          ctx.lineTo(v.x - 12 * Math.cos(angle - Math.PI / 6), v.y - 12 * Math.sin(angle - Math.PI / 6));
+          ctx.lineTo(v.x - 12 * Math.cos(angle + Math.PI / 6), v.y - 12 * Math.sin(angle + Math.PI / 6));
+          ctx.fillStyle = ctx.strokeStyle;
+          ctx.fill();
+        }
+      });
+
+      // Draw nodes
+      Object.values(nodeCoords).forEach(item => {
+        const color = typeColors[item.node.type] || '#94a3b8';
+        ctx.beginPath();
+        ctx.arc(item.x, item.y, 14, 0, 2 * Math.PI);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#fff';
+        ctx.stroke();
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(item.node.id, item.x, item.y + 26);
+      });
+    }
+
+    setTimeout(resize, 100);
+  </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+[
+  {
+    "technique_id": "T1110",
+    "name": "Brute Force",
+    "tactics": ["credential-access"],
+    "description": "Adversaries may use brute force techniques to attempt credential access through trial and error.",
+    "platforms": ["Windows", "Linux", "macOS", "Office 365", "Azure AD", "SaaS", "Identity Provider"],
+    "data_sources": ["User Account: User Account Authentication", "Logon Session: Logon Session Creation"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1110.001",
+    "name": "Password Guessing",
+    "tactics": ["credential-access"],
+    "description": "Adversaries may guess passwords to attempt credential access against accounts with weak passwords.",
+    "platforms": ["Windows", "Linux", "macOS", "Azure AD", "SaaS"],
+    "data_sources": ["User Account: User Account Authentication"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1110.003",
+    "name": "Password Spraying",
+    "tactics": ["credential-access"],
+    "description": "Adversaries may use a single or small set of passwords against many accounts to evade lockout policies.",
+    "platforms": ["Windows", "Linux", "macOS", "Azure AD", "SaaS"],
+    "data_sources": ["User Account: User Account Authentication"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "tactics": ["initial-access", "persistence", "privilege-escalation", "defense-evasion"],
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion.",
+    "platforms": ["Windows", "Linux", "macOS", "Cloud", "Office 365", "Azure AD", "Network"],
+    "data_sources": ["User Account: User Account Authentication", "Logon Session: Logon Session Creation"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1078.004",
+    "name": "Cloud Accounts",
+    "tactics": ["initial-access", "persistence", "privilege-escalation", "defense-evasion"],
+    "description": "Adversaries may obtain and abuse credentials of cloud accounts to gain access to cloud environments.",
+    "platforms": ["Azure AD", "AWS IAM", "GCP IAM", "Cloud"],
+    "data_sources": ["User Account: User Account Authentication"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1059",
+    "name": "Command and Scripting Interpreter",
+    "tactics": ["execution"],
+    "description": "Adversaries may abuse command and script interpreters to execute commands, scripts, or binaries.",
+    "platforms": ["Windows", "Linux", "macOS", "Network"],
+    "data_sources": ["Command: Command Execution", "Process: Process Creation"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1059.001",
+    "name": "PowerShell",
+    "tactics": ["execution"],
+    "description": "Adversaries may abuse PowerShell commands and scripts for execution.",
+    "platforms": ["Windows"],
+    "data_sources": ["Command: Command Execution", "Process: Process Creation", "Script: Script Execution"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1059.004",
+    "name": "Unix Shell",
+    "tactics": ["execution"],
+    "description": "Adversaries may abuse Unix shells (sh, bash, zsh) to execute commands.",
+    "platforms": ["Linux", "macOS"],
+    "data_sources": ["Command: Command Execution", "Process: Process Creation"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1003",
+    "name": "OS Credential Dumping",
+    "tactics": ["credential-access"],
+    "description": "Adversaries may attempt to dump credentials from memory, NTDS.dit, SAM or LSA secrets.",
+    "platforms": ["Windows", "Linux"],
+    "data_sources": ["Process: Process Access", "Command: Command Execution"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1003.001",
+    "name": "LSASS Memory",
+    "tactics": ["credential-access"],
+    "description": "Adversaries may attempt to access credential material stored in the process memory of the Local Security Authority Subsystem Service (LSASS).",
+    "platforms": ["Windows"],
+    "data_sources": ["Process: Process Access", "Command: Command Execution"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1021",
+    "name": "Remote Services",
+    "tactics": ["lateral-movement"],
+    "description": "Adversaries may use valid accounts to log into a service specifically designed to accept remote connections.",
+    "platforms": ["Windows", "Linux", "macOS"],
+    "data_sources": ["Network Traffic: Network Connection Creation", "Logon Session: Logon Session Creation"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1021.001",
+    "name": "Remote Desktop Protocol",
+    "tactics": ["lateral-movement"],
+    "description": "Adversaries may use Valid Accounts to log into remote machines using RDP (port 3389).",
+    "platforms": ["Windows"],
+    "data_sources": ["Network Traffic: Network Connection Creation", "Logon Session: Logon Session Creation"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1021.002",
+    "name": "SMB/Windows Admin Shares",
+    "tactics": ["lateral-movement"],
+    "description": "Adversaries may use valid accounts to interact with remote SMB shares (C$, ADMIN$).",
+    "platforms": ["Windows"],
+    "data_sources": ["Network Traffic: Network Connection Creation", "File: File Creation"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1566",
+    "name": "Phishing",
+    "tactics": ["initial-access"],
+    "description": "Adversaries may send phishing messages to gain access to victim systems.",
+    "platforms": ["Windows", "Linux", "macOS", "SaaS", "Office 365"],
+    "data_sources": ["Application Log: Application Log Content", "Network Traffic: Network Traffic Content"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1566.001",
+    "name": "Spearphishing Attachment",
+    "tactics": ["initial-access"],
+    "description": "Adversaries may send spearphishing emails with malicious attachments.",
+    "platforms": ["Windows", "Linux", "macOS", "Office 365"],
+    "data_sources": ["File: File Creation", "Network Traffic: Network Traffic Content"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1530",
+    "name": "Data from Cloud Storage",
+    "tactics": ["collection"],
+    "description": "Adversaries may access data from cloud storage objects such as S3 buckets, Azure Blob Storage, or Google Cloud Storage.",
+    "platforms": ["AWS", "Azure", "GCP"],
+    "data_sources": ["Cloud Storage: Cloud Storage Object Access"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1567",
+    "name": "Exfiltration Over Web Service",
+    "tactics": ["exfiltration"],
+    "description": "Adversaries may exfiltrate data to cloud storage, paste sites, or external web services.",
+    "platforms": ["Windows", "Linux", "macOS"],
+    "data_sources": ["Network Traffic: Network Connection Creation", "Command: Command Execution"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1048",
+    "name": "Exfiltration Over Alternative Protocol",
+    "tactics": ["exfiltration"],
+    "description": "Adversaries may steal data by transferring it over an alternative network protocol than the existing C2 channel.",
+    "platforms": ["Windows", "Linux", "macOS"],
+    "data_sources": ["Network Traffic: Network Connection Creation"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1068",
+    "name": "Exploitation for Privilege Escalation",
+    "tactics": ["privilege-escalation"],
+    "description": "Adversaries may exploit software vulnerabilities in an attempt to elevate privileges.",
+    "platforms": ["Windows", "Linux", "macOS"],
+    "data_sources": ["Process: Process Creation"],
+    "version": "v15.1"
+  },
+  {
+    "technique_id": "T1562",
+    "name": "Impair Defenses",
+    "tactics": ["defense-evasion"],
+    "description": "Adversaries may maliciously modify system components to hinder defensive security tools.",
+    "platforms": ["Windows", "Linux", "macOS"],
+    "data_sources": ["Service: Service Modification", "Process: Process Termination"],
+    "version": "v15.1"
+  }
+]
